@@ -31,6 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    sourceSets {
+        test.resources.srcDirs += "src\\androidTest\\java\\factories"
+    }
 }
 
 apply plugin: 'kotlin-kapt'
