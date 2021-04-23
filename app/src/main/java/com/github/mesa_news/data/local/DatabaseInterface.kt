@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.github.mesa_news.data.local.daos.NewDao
 import com.github.mesa_news.data.models.New
 
 @Database(entities = [New::class],
@@ -28,4 +29,6 @@ abstract class DatabaseInterface : RoomDatabase() {
             ).build()
         }
     }
+
+    abstract fun newDao(): NewDao
 }
