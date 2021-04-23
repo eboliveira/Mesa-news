@@ -5,6 +5,7 @@ Este projeto é responsável por exibir news a um usuário. O app como um todo �
   - [ ] Listagem de notícias ordenada por data de publicação
 - [ ] Tela de Login
 - [ ] Tela de Cadastro
+
 Sendo assim, essa telas terão as seguintes funcionalidades:
 - Tela de News
   - [ ] Carrossel com as news em destaque no top da tela inicial
