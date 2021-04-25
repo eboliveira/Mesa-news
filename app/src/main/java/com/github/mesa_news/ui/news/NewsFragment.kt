@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mesa_news.R
-import com.github.mesa_news.data.models.New
 import com.github.mesa_news.databinding.FragmentNewsBinding
 
 class NewsFragment : Fragment() {
@@ -32,11 +32,18 @@ class NewsFragment : Fragment() {
         newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         binding.viewModel = newsViewModel
         highlightedNewsAdapter = NewAdapter()
-        binding.root.findViewById<RecyclerView>(R.id.recycler_veiew).apply {
+        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = highlightedNewsAdapter
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        newsViewModel.highlightedNews?.observe(viewLifecycleOwner, { news ->
+            news?.apply { highlightedNewsAdapter.news = news }
+        })
     }
 }

@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -19,10 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{aNew.title}"
-            app:layout_constraintStart_toStartOf="parent"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            tools:text="A random title"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="A random title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
