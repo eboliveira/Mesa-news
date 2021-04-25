@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.mesa_news.data.local.daos.NewDao
+import com.github.mesa_news.data.models.New
 import getOrAwaitValue
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -44,7 +45,7 @@ class DatabaseInterfaceTest {
 
     @Test
     @Throws(Exception::class)
-    fun writeNewAndReadInList() {
+    fun writeNewsAndReadInList() {
         val news = NewFactory.getList(3)
         newDao.insertAll(news)
 
@@ -58,5 +59,19 @@ class DatabaseInterfaceTest {
         newsRoom = newDao.getAll()
         newsRoom.getOrAwaitValue()
         assert(newsRoom.value?.isEmpty() ?: false)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun writeHighlightedNewsAndReadInList() {
+        val new = New(highlight = true)
+        newDao.insertAll(listOf(new))
+
+        val newsRoom = newDao.getHighlighted()
+
+        newsRoom.getOrAwaitValue()
+        assertThat(1, equalTo(newsRoom.value?.size))
+
+        newDao.clean()
     }
 }
