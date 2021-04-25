@@ -1,4 +1,4 @@
-package com.github.mesa_news.news
+package com.github.mesa_news.ui.news
 
 import android.os.Bundle
 import android.view.LayoutInflater
