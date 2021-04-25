@@ -37,6 +37,11 @@ android {
     sourceSets {
         test.resources.srcDirs += "src\\androidTest\\java\\factories"
     }
+
+    buildFeatures {
+        //noinspection DataBindingWithoutKapt
+        dataBinding true
+    }
 }
 
 apply plugin: 'kotlin-kapt'
