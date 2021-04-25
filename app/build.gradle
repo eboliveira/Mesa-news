@@ -23,6 +23,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            buildConfigField "String", "API_URL", "\"https://mesa-news-api.herokuapp.com/v1\""
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
