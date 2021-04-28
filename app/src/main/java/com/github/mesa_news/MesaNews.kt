@@ -9,5 +9,7 @@ class MesaNews: Application() {
         super.onCreate()
         DatabaseInterface.startDatabase(this)
         SharedPreferences(this)
+        // TODO remove that when authentication is implemented
+        SharedPreferences.token = "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huQGRvZS5jb20ifQ.08rKeRUP3TiiEUbeIGZGDZRvVmxISOprpEWkWDCpbOo"
     }
 }

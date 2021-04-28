@@ -10,7 +10,7 @@ import org.junit.Test
 
 
 class TokenInterceptorTest {
-    private val subject = TokenInterceptor()
+    private val subject = TokenInterceptor
     private val chainMock = mockk<Interceptor.Chain>(relaxed = true)
     private val builderMock = mockk<Request.Builder>(relaxed = true)
     private var token: String? = null

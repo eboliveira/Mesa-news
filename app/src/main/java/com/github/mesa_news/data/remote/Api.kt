@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Api {
     private val client = Retrofit.Builder()
         .baseUrl(Environment.apiUrl)
-        .client(HttpClient())
+        .client(HttpClient.instance)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
