@@ -27,5 +27,7 @@ data class New(
     val url: String = "",
 
     @ColumnInfo(name = "image_url")
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+
+    val favorite: Boolean = false
 )
