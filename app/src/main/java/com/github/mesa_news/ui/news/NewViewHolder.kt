@@ -5,25 +5,43 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mesa_news.R
+import com.github.mesa_news.data.local.DatabaseInterface
 import com.github.mesa_news.databinding.NewItemBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.net.URL
 
 
 class NewViewHolder(val viewDataBinding: NewItemBinding) :
     RecyclerView.ViewHolder(viewDataBinding.root) {
     fun bind() {
-        viewDataBinding.let {
+        viewDataBinding.aNew ?: return
+
+        viewDataBinding.let { view ->
+            view.favoriteStar.setOnClickListener {
+                val isFavorite = viewDataBinding.aNew!!.favorite
+                viewDataBinding.aNew!!.favorite = !isFavorite
+                val iconResource =
+                    if (isFavorite) R.drawable.ic_empty_star else R.drawable.ic_filled_star
+                viewDataBinding.favoriteStar.setImageResource(iconResource)
+                CoroutineScope(Dispatchers.IO).launch {
+                    DatabaseInterface.getDatabase()?.newDao()?.updateNew(viewDataBinding.aNew!!)
+                }
+            }
+
             try {
-                val imageUrl = URL(it.aNew!!.imageUrl)
+                val imageUrl = URL(view.aNew!!.imageUrl)
                 val imageBitmap =
                     BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
-                it.newImage.setImageBitmap(imageBitmap)
+                view.newImage.setImageBitmap(imageBitmap)
             } catch (e: Exception) {
                 // TODO implement error handling or reporting
             }
-            
-            it.newImage.visibility = View.VISIBLE
-            it.imageProgressBar.visibility = View.GONE
+            if (view.aNew!!.favorite)
+                view.favoriteStar.setImageResource(R.drawable.ic_filled_star)
+            view.newImage.visibility = View.VISIBLE
+            view.imageProgressBar.visibility = View.GONE
         }
     }
 
