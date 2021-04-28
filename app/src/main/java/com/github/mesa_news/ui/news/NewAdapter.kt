@@ -28,6 +28,7 @@ class NewAdapter : RecyclerView.Adapter<NewViewHolder>() {
     override fun onBindViewHolder(holder: NewViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.aNew = news[position]
+            holder.bind()
         }
     }
 
