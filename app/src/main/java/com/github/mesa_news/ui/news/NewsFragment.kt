@@ -33,7 +33,7 @@ class NewsFragment : Fragment() {
         binding.viewModel = newsViewModel
         highlightedNewsAdapter = NewAdapter()
         binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = highlightedNewsAdapter
         }
 
