@@ -35,8 +35,8 @@ class NewsFragmentTest {
         with(launchFragmentInContainer<NewsFragment>()) {
             moveToState(Lifecycle.State.RESUMED)
 
-            onView(withId(R.id.recycler_view)).check(matches(isDisplayed()))
-            onView(withId(R.id.recycler_view)).check { view, _ ->
+            onView(withId(R.id.recycler_view_highlighted_news)).check(matches(isDisplayed()))
+            onView(withId(R.id.recycler_view_highlighted_news)).check { view, _ ->
                 check((view as RecyclerView).adapter?.itemCount == 1)
             }
         }

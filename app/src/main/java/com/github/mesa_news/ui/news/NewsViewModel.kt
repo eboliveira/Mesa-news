@@ -5,4 +5,5 @@ import com.github.mesa_news.data.repositories.NewsRepository
 
 class NewsViewModel: ViewModel() {
     val highlightedNews = NewsRepository.highlightedNews
+    val news = NewsRepository.news
 }
