@@ -18,6 +18,9 @@ interface NewDao {
     @Query("SELECT * FROM new WHERE highlight = 1")
     fun getHighlighted(): LiveData<List<New>>
 
+    @Query("SELECT * FROM new WHERE highlight = 0")
+    fun getNotHighlighted(): LiveData<List<New>>
+
     @Update
     fun updateNew(aNew: New)
 }

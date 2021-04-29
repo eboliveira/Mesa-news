@@ -30,7 +30,7 @@ class NewsRepositoryTest {
         every { daoMock.getHighlighted() } returns highlightedNewsMock
         mockkObject(Api)
         every { Api.newsServices } returns newsServicesMock
-        coEvery { newsServicesMock.highlights() } returns pagedNews
+        coEvery { newsServicesMock.news() } returns pagedNews
         every { pagedNews.data } returns news
     }
 
@@ -41,55 +41,55 @@ class NewsRepositoryTest {
     }
 
     @Test
-    fun `refreshHighlighted do not call API when there is no database`() {
+    fun `refresh do not call API when there is no database`() {
         every { DatabaseInterface.getDatabase() } returns null
 
         runBlocking {
-            NewsRepository.refreshHighlighted()
+            NewsRepository.refresh()
         }
 
-        coVerify(exactly = 0) { newsServicesMock.highlights() }
+        coVerify(exactly = 0) { newsServicesMock.news() }
     }
 
     @Test
-    fun `refreshHighlighted do not call API when refreshed too soon`() {
+    fun `refresh do not call API when refreshed too soon`() {
         NewsRepository.lastRefreshAt = DateTime.now().plusSeconds(58)
 
         runBlocking {
-            NewsRepository.refreshHighlighted()
+            NewsRepository.refresh()
         }
 
-        coVerify(exactly = 0) { newsServicesMock.highlights() }
+        coVerify(exactly = 0) { newsServicesMock.news() }
     }
 
     @Test
-    fun `refreshHighlighted call API when not refreshed too soon and there is DAO `() {
+    fun `refresh call API when not refreshed too soon and there is DAO `() {
         NewsRepository.lastRefreshAt = DateTime.now().plusSeconds(62)
 
         runBlocking {
-            NewsRepository.refreshHighlighted()
+            NewsRepository.refresh()
         }
 
-        coVerify(exactly = 1) { newsServicesMock.highlights() }
+        coVerify(exactly = 1) { newsServicesMock.news() }
     }
 
     @Test
-    fun `refreshHighlighted insert on database when not refreshed too soon and there is DAO `() {
+    fun `refresh insert on database when not refreshed too soon and there is DAO `() {
         NewsRepository.lastRefreshAt = DateTime.now().plusSeconds(62)
 
         runBlocking {
-            NewsRepository.refreshHighlighted()
+            NewsRepository.refresh()
         }
 
         coVerify(exactly = 1) { daoMock.insertAll(news) }
     }
 
     @Test
-    fun `refreshHighlighted clean database when not refreshed too soon and there is DAO `() {
+    fun `refresh clean database when not refreshed too soon and there is DAO `() {
         NewsRepository.lastRefreshAt = DateTime.now().plusSeconds(62)
 
         runBlocking {
-            NewsRepository.refreshHighlighted()
+            NewsRepository.refresh()
         }
 
         coVerify(exactly = 1) { daoMock.clean() }

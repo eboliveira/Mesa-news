@@ -9,14 +9,15 @@ import org.joda.time.Seconds
 
 object NewsRepository {
     val highlightedNews = DatabaseInterface.getDatabase()?.newDao()?.getHighlighted()
+    val news = DatabaseInterface.getDatabase()?.newDao()?.getNotHighlighted()
     lateinit var lastRefreshAt: DateTime
 
-    suspend fun refreshHighlighted() = withContext(Dispatchers.IO) {
+    suspend fun refresh() = withContext(Dispatchers.IO) {
         if (canRefresh()) {
             try {
                 val newsDao = DatabaseInterface.getDatabase()?.newDao()
                 newsDao ?: throw Exception("No dao found trying to refresh highlighted news")
-                val news = Api.newsServices.highlights()
+                val news = Api.newsServices.news()
                 newsDao.clean()
                 newsDao.insertAll(news.data)
             } catch (e: Exception) {

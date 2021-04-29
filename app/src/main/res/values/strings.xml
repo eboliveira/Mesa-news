@@ -5,4 +5,5 @@
 
     <string name="hello_news_fragment">Hello news fragment</string>
     <string name="highlighted_news_title">Highlighted news</string>
+    <string name="news_title">News</string>
 </resources>
